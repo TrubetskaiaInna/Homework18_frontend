@@ -24,10 +24,15 @@ h3{
 
 .user {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 10px;
   width: 80%;
   border-bottom: 1px solid silver;
+  color: grey;
+}
+
+.user:hover{
+  text-decoration: none;
 }
 
 .wrapperButton{
@@ -36,4 +41,5 @@ h3{
   width: 300px;
   margin: 10px auto ;
 }
+
 

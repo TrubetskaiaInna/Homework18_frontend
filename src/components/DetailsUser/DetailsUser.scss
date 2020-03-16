@@ -1,0 +1,33 @@
+.wrapperDetails {
+  width: 40%;
+  margin: auto;
+}
+
+.wrapperInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.info {
+  width: 60%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.infoA {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.infoAddress {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 50%;
+}
+
+.titleInfo {
+  font-weight: bold;
+}

@@ -67,7 +67,7 @@ const TransitionsModal = props => {
         <Fade in={open}>
           <div className={classes.paper}>
             <div className='wrapperLink'>
-              <button onClick={handleClose} className='btn btn-outline-primary'>Back to user list</button>
+              <button onClick={handleClose} className='btn btn-primary'>Back to user list</button>
             </div>
             <div className='title'>
               <h3>Delete user</h3>
