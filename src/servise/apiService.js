@@ -33,4 +33,18 @@ export class apiService {
         console.log(error.config)
       })
   }
+
+  static deleteUser (id) {
+    return axios.delete(`${API_HOST}user/${id}`)
+      .catch(error => {
+        if (error.response) {
+          console.log(error.response.data)
+          console.log(error.response.status)
+          console.log(error.response.headers)
+        } else {
+          console.log('Strange Error', error.message)
+        }
+        console.log(error.config)
+      })
+  }
 }

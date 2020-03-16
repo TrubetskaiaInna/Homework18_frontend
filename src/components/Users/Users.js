@@ -12,7 +12,15 @@ class Users extends Component {
     }
   }
 
+  updateData = (value) => {
+    this.setState({users: value})
+  }
+
   componentDidMount () {
+    this.getUsers()
+  }
+
+  getUsers = () => {
     apiService.getUser().then(res => {
       this.setState({
         users: res.data
@@ -31,6 +39,7 @@ class Users extends Component {
                 return (
                   <User user={user}
                         key={user._id}
+                        updateData={this.updateData}
                   />
                 )
               })
