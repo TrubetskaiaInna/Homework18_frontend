@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
-import './CreateUser.scss'
-import { apiService } from '../../servise/apiService'
 import { NavLink } from 'react-router-dom'
+import { apiService } from '../../servise/apiService'
 import {Error} from '../Error/Error'
 
-class CreateUser extends Component {
+class EditUser extends Component {
+
   constructor (props) {
     super(props)
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
+      firstName: this.props.location.user?.firstName,
+      lastName: this.props.location.user?.lastName,
+      email: this.props.location.user?.email,
       address: {
-        city: '',
-        street: ''
+        city: this.props.location.user?.address.city,
+        street: this.props.location.user?.address.street
       },
       showError: false
     }
@@ -30,15 +30,17 @@ class CreateUser extends Component {
     this.setState({ address: newState })
   }
 
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     const { firstName, lastName, email, address } = this.state
+    const { location } = this.props
     e.preventDefault()
-    apiService.createUser({ firstName, lastName, email, address })
-      .catch((err)=>{
-        console.log(err)
-      this.setState({
-        showError: true
-      })
+    await apiService.editUser(location.user?._id, {
+      firstName,
+      lastName,
+      email,
+      address
+    }).catch(() => {
+      this.setState({ showError: true })
     })
     this.setState({
       firstName: '',
@@ -54,7 +56,7 @@ class CreateUser extends Component {
   render () {
     return (
       <>
-        {this.state.showError ? <Error/>: null}
+        {this.state.showError ? <Error/> : null}
         <div className='wrapperLink'>
           <NavLink className='btn btn-outline-primary' to="/">
             Back to user list
@@ -62,7 +64,7 @@ class CreateUser extends Component {
         </div>
         <div className='wrapperForm'>
           <form onSubmit={this.onSubmit}>
-            <legend>Create user</legend>
+            <legend>Edit user</legend>
             <div className="form-group">
               <label>First name</label>
               <input
@@ -103,6 +105,7 @@ class CreateUser extends Component {
             <div className="form-group">
               <label>Address</label>
               <div className="address">
+                <label>city</label>
                 <input
                   required
                   name="city"
@@ -114,6 +117,7 @@ class CreateUser extends Component {
                 />
               </div>
               <div className="address">
+                <label>street</label>
                 <input
                   required
                   name="street"
@@ -135,4 +139,4 @@ class CreateUser extends Component {
   }
 }
 
-export default CreateUser
+export default EditUser

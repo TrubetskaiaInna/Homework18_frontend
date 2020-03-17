@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom'
 
 class User extends Component {
   render () {
-
     return (
       <>
         <div className='wrapperItemUser'>
@@ -17,7 +16,8 @@ class User extends Component {
           </NavLink>
           <TransitionsModal
             user={this.props.user}
-            updateData={this.props.updateData}/>
+            updateData={this.props.updateData}
+            showError={this.props.showError} />
 
         </div>
       </>

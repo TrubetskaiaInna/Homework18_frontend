@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    width: '60%',
+    width: '40%',
     flexWrap: 'wrap',
     outline: 'none'
   }
@@ -41,54 +41,58 @@ const TransitionsModal = props => {
       console.log(res)
       apiService.getUser().then(res => {
         props.updateData(res.data)
-      })
+      }).catch(err => console.log(err))
+    }).catch((err) => {
+      console.log(err)
+      props.showError()
     })
     handleClose()
-
   }
 
   return (
-    <div>
-      <button className='btn btn-primary btn-sm' onClick={handleOpen}>
-        Delete
-      </button>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500
-        }}
-      >
-        <Fade in={open}>
-          <div className={classes.paper}>
-            <div className='wrapperLink'>
-              <button onClick={handleClose} className='btn btn-primary'>Back to user list</button>
+    <>
+      <div>
+        <button className='btn btn-primary btn-sm' onClick={handleOpen}>
+          Delete
+        </button>
+        <Modal
+          aria-labelledby='transition-modal-title'
+          aria-describedby='transition-modal-description'
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500
+          }}
+        >
+          <Fade in={open}>
+            <div className={classes.paper}>
+              <div className='wrapperLink'>
+                <button onClick={handleClose} className='btn btn-primary'>Back to user list</button>
+              </div>
+              <div className='title'>
+                <h3>Delete user</h3>
+              </div>
+              <div className='text'>
+                <span>Do you really want to delete?</span>
+              </div>
+              <div className='text'>
+                <span>User:</span>
+              </div>
+              <div className='text'>
+                <span>{props.user.firstName}</span>
+                <span>{props.user.lastName}</span>
+              </div>
+              <div className='wrapperButton'>
+                <button onClick={deleteUser} className='btn btn-outline-primary'>Delete</button>
+              </div>
             </div>
-            <div className='title'>
-              <h3>Delete user</h3>
-            </div>
-            <div className='text'>
-              <span>Do you really want to delete?</span>
-            </div>
-            <div className='text'>
-              <span>User:</span>
-            </div>
-            <div className='text'>
-              <span>{props.user.firstName}</span>
-              <span>{props.user.lastName}</span>
-            </div>
-            <div className='wrapperButton'>
-              <button onClick={deleteUser} className='btn btn-outline-primary'>Delete</button>
-            </div>
-          </div>
-        </Fade>
-      </Modal>
-    </div>
+          </Fade>
+        </Modal>
+      </div>
+    </>
   )
 }
 export default TransitionsModal

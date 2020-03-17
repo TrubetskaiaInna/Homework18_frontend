@@ -2,26 +2,32 @@ import React, { Component } from 'react'
 import { apiService } from '../../servise/apiService'
 import { NavLink } from 'react-router-dom'
 import './DetailsUser.scss'
+import {Error} from '../Error/Error'
 
 class DetailsUser extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      user: []
+      user: [],
+      showError: false
     }
   }
 
   componentDidMount () {
-    apiService.detailsUser(this.props.location.userId)
+    const { location } = this.props
+    apiService.detailsUser(location.userId)
       .then((res) => {
           this.setState({ user: res.data })
         }
-      )
+      ).catch(() => {
+      this.setState({ showError: true })
+    })
   }
 
   render () {
     return (
       <>
+        {this.state.showError ? <Error/>: null}
         <div className='wrapperLink'>
           <NavLink className='btn btn-outline-primary' to="/">
             Back to user list
@@ -52,6 +58,15 @@ class DetailsUser extends Component {
                 {this.state.user.address?.street}</div>
             </div>
           </div>
+        </div>
+        <div className='wrapperButton'>
+          <NavLink className='btn btn-outline-primary'
+                   to={{
+                     pathname: `/edit/user/${this.state.user._id}`,
+                     user: this.state.user
+                   }}>
+            Edit user
+          </NavLink>
         </div>
       </>
     )
