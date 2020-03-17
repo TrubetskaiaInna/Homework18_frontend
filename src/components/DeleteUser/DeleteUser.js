@@ -38,7 +38,6 @@ const TransitionsModal = props => {
 
   const deleteUser = () => {
     apiService.deleteUser(props.user._id).then((res) => {
-      console.log(res)
       apiService.getUser().then(res => {
         props.updateData(res.data)
       }).catch(err => console.log(err))

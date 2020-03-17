@@ -22,8 +22,6 @@ export class apiService {
       lastName: currentUser.lastName,
       email: currentUser.email,
       address: currentUser.address
-    }).then((res) => {
-      console.log(res)
     })
   }
 
@@ -51,8 +49,6 @@ export class apiService {
       lastName: currentUser.lastName,
       email: currentUser.email,
       address: currentUser.address
-    }).then((res) => {
-      console.log(res)
     })
   }
 }
